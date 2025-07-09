@@ -3,8 +3,58 @@
 .DS_Store
 .env
 
-# virtual environments
+# Dataset files (team-specific datasets)
+submissions/team-members/*/archive/
+*.csv
+
+# Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Virtual environments
 venv/
 .venv/
 env/
 ENV/
+
+# MLflow experiment tracking
+mlruns/
+mlartifacts/
+
+# Model artifacts
+*.pkl
+*.joblib
+*.h5
+*.keras
+
+# Data files
+*.parquet
+*.feather
+
+# OS files
+.DS_Store
+Thumbs.db
