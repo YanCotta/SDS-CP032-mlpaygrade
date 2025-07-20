@@ -1,7 +1,7 @@
 # MLPayGrade: Advanced Deep Learning Track
 ## Predicting Salaries in the Machine Learning Job Market
 
-**Team Member**: yan-cotta  
+**Team Member**: Yan Cotta  
 **Track**: Advanced (Deep Learning with Embeddings & Explainability)  
 **Project Timeline**: 5 weeks (July 2025)  
 **Status**: Week 1 Complete ✅
@@ -63,7 +63,7 @@ This repository implements the **Advanced Track** of the MLPayGrade community pr
 
 #### **2. Remote Work & Role Interaction**
 - **Executive Level**: Benefits most from 100% remote work ($211K vs $182K on-site)
-- **Entry Level**: Performs better on-site ($88K vs $50K remote)  
+- **Entry Level**: Performs better on-site ($88K vs $50K remote)
 - **Mid/Senior Levels**: Prefer on-site arrangements for optimal compensation
 - **Pattern**: Remote benefit increases with seniority level
 
@@ -266,6 +266,6 @@ Unlike the beginner track, this implementation features:
 
 ---
 
-**📧 Contact**: yan-cotta  
+**📧 Contact**: Yan Cotta at yanpcotta@gmail.com
 **🔗 Repository**: [SDS-CP032-mlpaygrade](https://github.com/YanCotta/SDS-CP032-mlpaygrade)  
 **📅 Last Updated**: July 9, 2025
