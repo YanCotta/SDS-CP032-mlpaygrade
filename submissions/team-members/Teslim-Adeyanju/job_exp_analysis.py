@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 
-def plot_job_vs_experience(job_vs_exp):
+def plot_job_vs_experience(job_vs_exp: pd.DataFrame):
     print("Top 10 Job Titles vs Experience Level Analysis")
     print("=" * 60)
     print(job_vs_exp)
