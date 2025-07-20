@@ -1,1 +1,17 @@
 # Contains all libraries that are needed for this project
+
+# data science and visualization libraries
+pandas
+numpy
+matplotlib
+seaborn
+
+# machine learning
+scikit-learn
+
+# UI and cloud deployment
+streamlit
+
+# jupyter notebook
+jupyter
+ipykernel
