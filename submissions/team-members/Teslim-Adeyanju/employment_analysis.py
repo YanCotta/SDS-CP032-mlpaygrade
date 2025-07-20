@@ -3,6 +3,22 @@
 import matplotlib.pyplot as plt
 
 def plot_exp_vs_employment(exp_vs_employment):
+    """
+    Visualizes the relationship between experience levels and employment types.
+
+    This function generates multiple plots to analyze and present insights about
+    the distribution of employment types (e.g., Full Time, Part Time, Contract, Freelance)
+    across different experience levels. It includes bar charts, percentage views,
+    and a pie chart for workforce distribution.
+
+    Args:
+        exp_vs_employment (pandas.DataFrame): A DataFrame where rows represent experience levels
+            and columns represent employment types. Each cell contains the count of employees
+            for the corresponding experience level and employment type.
+
+    Returns:
+        None: The function displays the plots but does not return any value.
+    """
     print("Experience Level vs Employment Type Analysis")
     print("=" * 50)
     print(exp_vs_employment)
