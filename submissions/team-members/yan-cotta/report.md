@@ -1,4 +1,4 @@
-# 📄 MLPayGrade – Project Report - 🔴 **Advanced Track**
+# MLPayGrade – Project Report - **Advanced Track**
 
 **Team Member**: Yan Cotta  
 **Project**: MLPayGrade Advanced Deep Learning Track  
