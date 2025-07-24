@@ -208,10 +208,10 @@ interaction_features = {
 
 ```
 yan-cotta/
-├── mlpaygrade_advanced_track.ipynb    # Main analysis notebook
-├── archive/
-│   └── salaries.csv                   # Dataset (gitignored)
-├── .gitignore                         # Git ignore rules
+├── mlpaygrade_advanced_track.ipynb    # Main analysis notebook (Week 1 & 2 Complete)
+├── salaries.csv                       # Dataset 
+├── preprocessed_mlpaygrade_data.csv   # Processed dataset for modeling
+├── report.md                          # Comprehensive project report
 ├── README.md                          # This file
 └── (future files)
     ├── src/
