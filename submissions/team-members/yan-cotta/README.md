@@ -4,7 +4,7 @@
 **Team Member**: Yan Cotta  
 **Track**: Advanced (Deep Learning with Embeddings & Explainability)  
 **Project Timeline**: 5 weeks (July 2025)  
-**Status**: Week 1 Complete ✅
+**Status**: Week 1 & 2 Complete ✅
 
 ---
 
@@ -166,10 +166,10 @@ interaction_features = {
 ## 🚀 Week 2-5 Implementation Roadmap
 
 ### **Week 2: Feature Engineering & Data Preprocessing**
-- [ ] Implement consolidation strategies
-- [ ] Create interaction features  
-- [ ] Handle class imbalances
-- [ ] Set up train/validation/test splits with temporal considerations
+- [x] Implement consolidation strategies
+- [x] Create interaction features  
+- [x] Handle class imbalances
+- [x] Set up train/validation/test splits with temporal considerations
 
 ### **Week 3-4: Deep Learning Model Development**
 - [ ] Design feedforward neural network architecture
