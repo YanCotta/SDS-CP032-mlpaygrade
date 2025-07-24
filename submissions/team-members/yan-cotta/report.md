@@ -308,7 +308,7 @@ Our Week 3 implementation has delivered a **production-grade salary prediction m
 
 **Note**: The "avg salary error" is calculated as (MAE ÷ Average Salary) × 100. For this model, it is ($1,917 ÷ $150,000) × 100 ≈ 1.28%.
 | Neural Network | $15,477 | 90.7% | $22,545 | 10.3% avg salary error |
-| **Performance Gain** | **87.6% improvement** | **+4.7%** | **26.4% better** | **8x more accurate** |
+| **Performance Gain** | **87.6% improvement** | **+4.7%** | **26.4% better** | **87.4% reduction in error rate** |
 
 ---
 
