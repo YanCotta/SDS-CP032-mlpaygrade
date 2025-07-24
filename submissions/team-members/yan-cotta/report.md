@@ -453,7 +453,7 @@ Early Stopping: Monitor='val_loss', patience=20
 **4. Interpretability & Business Value**:
 - **XGBoost**: Clear feature importance rankings guide business decisions
 - **Neural Network**: "Black box" nature limits business stakeholder confidence
-- **Feature Insights**: log_salary (59%), salary_currency (9%), geographic factors (15%)
+- **Feature Insights**: salary_currency (9%), geographic factors (15%), experience level (35%)
 
 **Neural Network Performance Context**:
 - **Respectable Performance**: 90.7% R² is objectively strong
