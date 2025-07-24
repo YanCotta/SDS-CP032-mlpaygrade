@@ -4,8 +4,7 @@
 .env
 
 # Dataset files (team-specific datasets)
-submissions/team-members/*/archive/
-*.csv
+submissions/team-members/*/*.csv
 
 # Python files
 __pycache__/
