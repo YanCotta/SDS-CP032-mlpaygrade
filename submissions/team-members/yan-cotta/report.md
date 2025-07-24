@@ -511,7 +511,7 @@ Validation Metrics:
   - val_r2: 0.9613
 
 XGBoost Comparison:
-  - val_mae: 1,152 (87.6% better)
+  - val_mae: 1,917 (87.6% better)
   - val_r2: 0.949 (better performance)
 ```
 
