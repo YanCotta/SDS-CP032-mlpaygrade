@@ -137,7 +137,7 @@ df.salary_in_usd = np.log(df.salary_in_usd)
 
 df.reset_index(drop=True, inplace=True)
 
-file2=input('filenname')
+file2=input('filename')
 df.to_csv(file2, index=False)
 print('Data saved as {}'.format(file2))
 
