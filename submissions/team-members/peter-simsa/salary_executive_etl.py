@@ -13,7 +13,7 @@ print('Shape of the original data {}'.format(df.shape))
 df.drop_duplicates(keep='first', inplace=True)
 df = df.loc[df.work_year > 2021]
 df.drop(['work_year','salary','salary_currency'], axis=1, inplace=True)
-print('The shape of a the data after removing old data and the unnecessary columns: {}'.format(df.shape))
+print('The shape of the data after removing old data and the unnecessary columns: {}'.format(df.shape))
 
 df['remote_ratio'] = df.remote_ratio.astype('object')
 
