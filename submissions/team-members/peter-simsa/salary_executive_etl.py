@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from sklearn.cluster import KMeans
 from sklearn.pipeline import Pipeline
 import warnings
 
