@@ -129,6 +129,7 @@ df.employee_residence = df.employee_residence.map(filter)
 print('Employee residence fixed')
 
 #salary_in_usd
+df = df[df.salary_in_usd > 0]  # Filter out rows with non-positive salary_in_usd
 df.salary_in_usd = np.log(df.salary_in_usd)
 
 
