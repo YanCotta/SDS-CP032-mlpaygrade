@@ -155,15 +155,73 @@ Include run screenshots or output tables.
 
 ### 🔑 Question 1:
 
+**Which neural network architecture and hyperparameters did you experiment with, and how did you decide what to tune?**
+🎯 *Purpose: Tests understanding of architectural design and tuning for tabular deep learning.*
+
+💡 **Hint:**
+Tuning ideas include: number of layers, neurons per layer, dropout rate, batch size, learning rate.
+Justify choices based on previous results and known model behaviors.
+
+✏️ *Your answer here...*
+
+---
+
 ### 🔑 Question 2:
+
+**What tuning strategy did you follow (manual, scheduler-based, Optuna, etc.) and how did it help refine your model?**
+🎯 *Purpose: Evaluates ability to apply efficient search strategies for optimization.*
+
+💡 **Hint:**
+Manual tuning = more control but slower.
+Optuna/RandomSearch = broader coverage.
+Schedulers = dynamic adjustment during training.
+Explain tradeoffs and justify your approach.
+
+✏️ *Your answer here...*
+
+---
 
 ### 🔑 Question 3:
 
+**How did you monitor and evaluate the effect of tuning on model performance? Which metrics did you track and how did they change?**
+🎯 *Purpose: Tests analytical thinking and metric interpretation skills.*
+
+💡 **Hint:**
+Track F1, MAE, RMSE, or R² across validation.
+Use MLflow to visualize trends.
+Mention learning curves, performance on different splits, and early stopping if used.
+
+✏️ *Your answer here...*
+
+---
+
 ### 🔑 Question 4:
+
+**What did MLflow reveal about your tuning experiments, and how did it help in selecting your final model configuration?**
+🎯 *Purpose: Encourages tool-based reflection on the model development process.*
+
+💡 **Hint:**
+Discuss MLflow runs, comparison plots, parameter filtering.
+Explain how it saved time or revealed overlooked patterns.
+
+✏️ *Your answer here...*
+
+---
 
 ### 🔑 Question 5:
 
+**What is your final model setup (architecture + hyperparameters), and why do you believe it’s the most generalizable?**
+🎯 *Purpose: Tests ability to justify final model selection with evidence and insight.*
+
+💡 **Hint:**
+Include a summary of hyperparameters, loss function, optimizer.
+Explain why this configuration balances performance and simplicity.
+Support decision with validation performance and interpretability where possible.
+
+✏️ *Your answer here...*
+
 ---
+
 
 ## ✅ Week 5: Model Deployment
 
