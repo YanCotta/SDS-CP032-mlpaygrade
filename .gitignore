@@ -6,6 +6,7 @@
 
 # Dataset files (team-specific datasets)
 submissions/team-members/*/*.csv
+submissions/team-members/yan-cotta/archive/salaries.csv
 
 # Python files
 __pycache__/
