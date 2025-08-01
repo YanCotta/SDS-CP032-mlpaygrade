@@ -87,9 +87,6 @@ Consider dropping or combining rare categories in high-cardinality categorical v
 
 ---
 
-
----
-
 ## ✅ Week 3: Model Development & Experimentation
 
 ### 🔑 Question 1:
@@ -160,13 +157,71 @@ Include screenshots or MLflow logs if possible.
 
 ### 🔑 Question 1:
 
+**Which model performed the best during validation, and what evaluation metrics led you to choose it?**
+🎯 *Purpose: Tests ability to select a final model based on quantitative evidence.*
+
+💡 **Hint:**
+Compare MAE, RMSE, and R² across models.
+Include visualizations (e.g., bar plots, tables) if helpful.
+Explain why one model outperformed the others and whether its results are consistent across data splits.
+
+✏️ *Your answer here...*
+
+---
+
 ### 🔑 Question 2:
+
+**How did you approach tuning your best model’s hyperparameters? What method did you use (e.g., GridSearch, RandomizedSearch), and why?**
+🎯 *Purpose: Evaluates awareness of optimization techniques and reasoning behind method selection.*
+
+💡 **Hint:**
+Use `GridSearchCV` or `RandomizedSearchCV`.
+List which hyperparameters you tuned and their tested ranges.
+Explain tradeoffs between exhaustive and randomized approaches.
+
+✏️ *Your answer here...*
+
+---
 
 ### 🔑 Question 3:
 
+**How did the model's performance change after tuning? Was the improvement significant, and how did you validate that?**
+🎯 *Purpose: Tests ability to assess tuning impact and understand diminishing returns.*
+
+💡 **Hint:**
+Compare pre- and post-tuning results using the same metrics.
+Include graphs or tables to visualize the change.
+Explain whether the improvement justifies the extra complexity.
+
+✏️ *Your answer here...*
+
+---
+
 ### 🔑 Question 4:
 
+**What were the most impactful hyperparameters in improving your model, and why do you think they made a difference?**
+🎯 *Purpose: Tests understanding of how model parameters affect learning and generalization.*
+
+💡 **Hint:**
+For tree models: max\_depth, n\_estimators, learning\_rate.
+Explain why increasing/decreasing those helped (e.g., more capacity, better regularization).
+Back your answer with MLflow logs or tuning history.
+
+✏️ *Your answer here...*
+
+---
+
 ### 🔑 Question 5:
+
+**Are you confident in your final model’s generalization? What steps did you take to reduce overfitting or underfitting?**
+🎯 *Purpose: Tests reflection on robustness and generalization risk.*
+
+💡 **Hint:**
+Discuss validation curves, test set results, cross-validation.
+Mention use of regularization, early stopping, or simplified models if applicable.
+State whether you expect similar performance on unseen data and why.
+
+✏️ *Your answer here...*
 
 ---
 
