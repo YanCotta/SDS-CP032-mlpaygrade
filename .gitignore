@@ -2,7 +2,6 @@
 .ipynb_checkpoints
 .DS_Store
 .env
-.csv
 
 # Dataset files (team-specific datasets)
 submissions/team-members/*/*.csv
