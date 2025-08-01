@@ -593,7 +593,7 @@ XGBoost Comparison:
 
 **Project Repository**: [SDS-CP032-mlpaygrade](https://github.com/YanCotta/SDS-CP032-mlpaygrade)  
 **Contact**: Yan Cotta (yanpcotta@gmail.com)  
-**Last Updated**: July 24, 2025
+**Last Updated**: August 1, 2025
 
 ## ✅ Week 4: Model Selection & Hyperparameter Tuning
 
