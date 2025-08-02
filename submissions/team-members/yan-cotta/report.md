@@ -603,7 +603,7 @@ XGBoost Comparison:
 **✅ Corrected Week 4 Solution**: XGBoost MAE of $2,279 with 0.9579 R² (using proper feature engineering)
 **🎯 Improvement**: **95.6% performance gain** through proper data preprocessing
 
-### �🔑 Question 1:
+### 🔑 Question 1:
 
 **Which neural network architecture and hyperparameters did you experiment with, and how did you decide what to tune?**
 🎯 *Purpose: Tests understanding of architectural design and tuning for tabular deep learning.*
