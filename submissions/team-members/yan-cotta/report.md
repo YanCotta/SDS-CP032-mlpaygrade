@@ -597,7 +597,7 @@ XGBoost Comparison:
 
 ## ✅ Week 4: Model Selection & Hyperparameter Tuning - **CORRECTED WITH FEATURE ENGINEERING**
 
-### � **CRITICAL PERFORMANCE ISSUE RESOLVED**
+### 🚨 **CRITICAL PERFORMANCE ISSUE RESOLVED**
 
 **Previous Week 4 Problem**: XGBoost MAE of $52,238 with 0.042 R² (using raw data)
 **✅ Corrected Week 4 Solution**: XGBoost MAE of $2,279 with 0.9579 R² (using proper feature engineering)
