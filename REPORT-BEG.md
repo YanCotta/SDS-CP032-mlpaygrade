@@ -227,17 +227,68 @@ State whether you expect similar performance on unseen data and why.
 
 ## ✅ Week 5: Model Deployment
 
-> Document your approach to building and deploying the Streamlit app, including design decisions, deployment steps, and challenges.
-
 ### 🔑 Question 1:
+**How did you design the user interface for your Streamlit app, and what considerations did you make to ensure a good user experience?**
+🎯 *Purpose: Tests ability to translate models into usable tools and consider end-user needs.*
+
+💡 **Hint:**
+Discuss layout, input controls, instructions, and feedback.
+Mention accessibility, clarity, and responsiveness.
+Explain how you made the app intuitive for non-technical users.
+
+✏️ *Your answer here...*
+
+---
 
 ### 🔑 Question 2:
+**Describe the steps you took to deploy your Streamlit app. What challenges did you encounter, and how did you resolve them?**
+🎯 *Purpose: Evaluates practical deployment skills and troubleshooting ability.*
+
+💡 **Hint:**
+List deployment steps (e.g., requirements.txt, Streamlit Cloud, GitHub integration).
+Mention any issues with dependencies, environment, or app loading.
+Explain how you debugged or fixed deployment problems.
+
+✏️ *Your answer here...*
+
+---
 
 ### 🔑 Question 3:
+**How did you ensure your deployed model and app are robust and secure for public use?**
+🎯 *Purpose: Tests awareness of security, reliability, and responsible deployment.*
+
+💡 **Hint:**
+Discuss input validation, error handling, and privacy considerations.
+Mention limiting model exposure, handling unexpected inputs, and protecting sensitive data.
+Explain any steps taken to monitor or update the app after deployment.
+
+✏️ *Your answer here...*
+
+---
 
 ### 🔑 Question 4:
+**How would you explain your deployed app and its predictions to a non-technical stakeholder?**
+🎯 *Purpose: Evaluates communication skills and ability to bridge technical–nontechnical gaps.*
+
+💡 **Hint:**
+Describe the app’s purpose, how to use it, and what the predictions mean.
+Use simple language and analogies.
+Address uncertainty and limitations in the predictions.
+
+✏️ *Your answer here...*
+
+---
 
 ### 🔑 Question 5:
+**If you were to improve or extend your deployed app, what features or enhancements would you add, and why?**
+🎯 *Purpose: Tests product thinking and ability to iterate on deployed solutions.*
+
+💡 **Hint:**
+Suggest new features (e.g., visualizations, explanations, batch predictions).
+Discuss user feedback, scalability, or integration with other tools.
+Explain how these changes would add value for users.
+
+✏️ *Your answer here...*
 
 ---
 

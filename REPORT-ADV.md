@@ -225,19 +225,68 @@ Support decision with validation performance and interpretability where possible
 
 ## ✅ Week 5: Model Deployment
 
-> Document your approach to building and deploying the Streamlit app, including design decisions, deployment steps, and challenges.
-
 ### 🔑 Question 1:
+**How did you architect the Streamlit app to support both model inference and explainability (e.g., SHAP visualizations)? What design decisions did you make to balance usability and technical depth?**
+🎯 *Purpose: Tests ability to design advanced user interfaces for ML apps.*
 
-### 🔑 Question 2:
+💡 **Hint:**
+Describe how you structured the app (e.g., tabs, sidebar, input forms, output panels).
+Explain how you integrated model predictions and SHAP explanations.
+Discuss tradeoffs between simplicity and providing detailed insights for advanced users.
 
-### 🔑 Question 3:
-
-### 🔑 Question 4:
-
-### 🔑 Question 5:
+✏️ *Your answer here...*
 
 ---
+
+### 🔑 Question 2:
+**Detail the steps you took to deploy your deep learning model and Streamlit app. What technical challenges did you face (e.g., model serialization, dependency management, cloud limits), and how did you resolve them?**
+🎯 *Purpose: Evaluates practical deployment skills and troubleshooting with deep learning models.*
+
+💡 **Hint:**
+List steps for saving/loading the model, preparing requirements, and deploying to Streamlit Cloud or Hugging Face Spaces.
+Mention issues with model size, inference speed, or library versions.
+Explain how you debugged or optimized deployment.
+
+✏️ *Your answer here...*
+
+---
+
+### 🔑 Question 3:
+**How did you ensure your deployed app is robust, secure, and scalable for public use?**
+🎯 *Purpose: Tests awareness of production-readiness, security, and reliability.*
+
+💡 **Hint:**
+Discuss input validation, error handling, and resource management.
+Mention protecting sensitive data, limiting model exposure, and handling unexpected or malicious inputs.
+Explain any monitoring or update strategies you implemented.
+
+✏️ *Your answer here...*
+
+---
+
+### 🔑 Question 4:
+**How would you communicate the app’s predictions and SHAP-based explanations to a non-technical stakeholder?**
+🎯 *Purpose: Evaluates ability to bridge technical and non-technical audiences, especially with explainability tools.*
+
+💡 **Hint:**
+Describe how you’d explain what the prediction means and how SHAP values show feature impact.
+Use analogies or simple visuals.
+Address uncertainty and limitations in both prediction and explanation.
+
+✏️ *Your answer here...*
+
+---
+
+### 🔑 Question 5:
+**If you were to extend your deployed app, what advanced features or improvements would you add, and how would they benefit users or stakeholders?**
+🎯 *Purpose: Tests product thinking and ability to iterate on advanced ML solutions.*
+
+💡 **Hint:**
+Suggest features like batch predictions, downloadable reports, user authentication, or real-time monitoring.
+Discuss adding more interpretability tools, support for new data, or integration with business systems.
+Explain the value these enhancements would provide.
+
+✏️ *Your answer
 
 ## ✨ Final Reflections
 
