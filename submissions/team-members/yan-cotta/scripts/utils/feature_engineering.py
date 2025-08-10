@@ -57,5 +57,8 @@ def ensure_group_columns(df: pd.DataFrame) -> pd.DataFrame:
     required = ["job_category","continent","experience_level","employment_type","company_size","work_year","salary_in_usd"]
     missing = [c for c in required if c not in df.columns]
     if missing:
-        raise ValueError(f"Missing required columns: {missing}")
+        raise ValueError(
+            f"[ensure_group_columns] DataFrame is missing required columns: {missing}. "
+            "Please ensure your DataFrame contains these columns before calling this function."
+        )
     return df
