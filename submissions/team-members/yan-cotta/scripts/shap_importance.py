@@ -31,7 +31,18 @@ if __name__ == "__main__":
         feature_names = list(pre.get_feature_names_out())
     except Exception:
         feature_names = [f"f{i}" for i in range(X_enc.shape[1])]
-
+        warnings.warn(
+            "Could not extract feature names from the preprocessor. "
+            "Falling back to generic names, which may reduce SHAP interpretability."
+        )
+        # Try to use original column names if possible
+        if hasattr(X, 'columns'):
+            feature_names = [f"{col}_{i}" for i, col in enumerate(X.columns)]
+            # If number of columns doesn't match, fallback to f{i}
+            if len(feature_names) != X_enc.shape[1]:
+                feature_names = [f"f{i}" for i in range(X_enc.shape[1])]
+        else:
+            feature_names = [f"f{i}" for i in range(X_enc.shape[1])]
     model = pipe.named_steps["xgb"]
     explainer = shap.Explainer(model, X_enc, feature_names=feature_names)
     shap_values = explainer(X_enc)
