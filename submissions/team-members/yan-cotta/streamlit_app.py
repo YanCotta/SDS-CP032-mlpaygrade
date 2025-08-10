@@ -11,7 +11,6 @@ def load_models():
     mapie = None
     try:
         mapie = joblib.load(MODELDIR / "xgb_mapie.pkl")
-    except Exception:
     except FileNotFoundError:
         pass
     except Exception as e:
