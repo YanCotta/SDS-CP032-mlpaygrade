@@ -12,7 +12,10 @@ def load_models():
     try:
         mapie = joblib.load(MODELDIR / "xgb_mapie.pkl")
     except Exception:
+    except FileNotFoundError:
         pass
+    except Exception as e:
+        logging.error(f"Error loading xgb_mapie.pkl: {e}")
     return pipe, mapie
 
 st.set_page_config(page_title="MLPayGrade", page_icon="💼")
