@@ -1,0 +1,8 @@
+{
+  "n_rows": 16494,
+  "n_groups": 600,
+  "global_mae": 51581.44851640074,
+  "group_loo_mae_mean": 42708.23253775254,
+  "group_loo_mae_median": 34217.70863039166,
+  "group_loo_mae_p90": 84759.91532977151
+}

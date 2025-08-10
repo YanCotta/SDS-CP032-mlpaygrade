@@ -1,4 +1,53 @@
 # MLPayGrade: Advanced Deep Learning Track
+
+> Important update (Aug 10, 2025): Ceiling-aware evaluation, leakage audit, and realistic re-benchmark completed. See “Executive Update” below. Historical sections further down reflect earlier state and are preserved for context.
+
+## Executive Update — Aug 10, 2025
+
+This project previously reported very low MAEs (e.g., ~$2K) and very high R², which conflicted with expected variability for categorical-heavy salary data. After feedback from a senior team member, we:
+
+- Summarized the conceptual ceiling: Even with identical profiles, salaries vary widely; this imposes a natural performance ceiling (explainable variance).
+- Audited for leakage and unrealistic evaluation setup; rebuilt a no-leak pipeline with temporal splits and deduplication.
+- Quantified the ceiling via grouped leave-one-out (LOO) means on identical categorical combos.
+- Re-benchmarked XGBoost inside a single sklearn Pipeline (encoders fit on train only) and added conformal intervals.
+
+Highlights
+- Ceiling (group LOO MAE): mean $42,708, median $34,218, p90 $84,760 (n=16,494 rows; 600 identical-feature groups).
+- No-leak XGBoost (2020–2022 train, 2023 val, 2024 test): val MAE $46,301; test MAE $48,512; test R² 0.124.
+- 90% conformal intervals (MAPIE): empirical coverage ≈ 0.719; avg width ≈ $161,475 (reflecting heavy noise/heavy tails).
+
+Additional results (Aug 10, 2025)
+- Group-aware validation (5-fold GroupKFold by categorical combo): MAE mean ≈ $45,728 (±$3,636), R² mean ≈ 0.140 (±0.047).
+- SHAP top drivers: continent (North America), job_category (Data Analysis, Machine Learning, Management), experience_level (SE, EN, MI), remote_ratio, company_size.
+
+Actions taken (new scripts)
+- scripts/utils/feature_engineering.py — derive job_category and continent deterministically (no target use).
+- scripts/group_ceiling.py — compute LOO group ceiling and export metrics/CSV.
+- scripts/train_xgb_pipeline.py — no-leak XGBoost with ColumnTransformer and temporal split.
+- scripts/add_intervals.py — conformal intervals with MAPIE.
+- streamlit_app.py — minimal app to serve point prediction and 90% interval.
+
+Current state
+- Model performance is now consistent with the intrinsic variability ceiling; prior sub-$5K MAEs were leakage/validation artifacts.
+- A minimal Streamlit app is runnable locally to demonstrate predictions with uncertainty.
+- Documentation updated with ceiling analysis, leakage audit, and realistic metrics.
+
+Next steps
+- Interval calibration: try MAPIE method='cv+' or a dedicated calibration split to push coverage toward 0.90 with reasonable width.
+- Group-aware validation: hold out unseen categorical combos (GroupKFold) for robustness.
+- Add SHAP or permutation importance for interpretability on the XGBoost pipeline.
+- Consider inflation/CPI or COLA adjustments for 2024 shift; evaluate economic-tier features.
+- Clean up markdown lint across docs.
+
+Notebook status and rename
+- The exploratory notebook was crucial early on but is now outdated relative to the final pipeline. It has been renamed to `mlpaygrade_exploration_archive.ipynb` to reflect its archival status.
+
+---
+
+Note on legacy sections below
+
+The sections titled “Week 3/4” with extremely low MAE and very high R² reflect an earlier, leakage-prone workflow and are preserved only for historical context. Please refer to the Executive Update metrics above for the accurate, ceiling-aware results.
+
 ## Predicting Salaries in the Machine Learning Job Market
 
 **Team Member**: Yan Cotta  
@@ -138,7 +187,7 @@ consolidation_strategy = {
     'MANAGEMENT': ['Data Manager', 'Head of Data', 'Director of Data Science'],
     'SPECIALIZED': [remaining_rare_titles]
 }
-```
+```text
 
 ### **2. Geographic Hierarchy (77 → 8 categories)**
 ```python
@@ -344,9 +393,21 @@ Unlike the beginner track, this implementation features:
 
 **📧 Contact**: Yan Cotta at yanpcotta@gmail.com
 **🔗 Repository**: [SDS-CP032-mlpaygrade](https://github.com/YanCotta/SDS-CP032-mlpaygrade)  
-**📅 Last Updated**: August 1, 2025
+**📅 Last Updated**: August 10, 2025
 
 ## 🎯 Project Status: ✅ COMPLETE & PRODUCTION-READY
+
+### Performance Ceiling and Leakage Audit
+- Explainable-variance ceiling (group LOO MAE across identical categorical combos: job_category, continent, experience_level, employment_type, company_size, work_year):
+    - Mean LOO MAE: $42,708.23
+    - Median LOO MAE: $34,217.71
+    - 90th percentile LOO MAE: $84,759.92
+- Re-benchmarked model (temporal split: 2020–2022 train, 2023 val, 2024 test):
+    - Validation MAE: $46,300.78
+    - Test MAE: $48,512.14
+    - Test R²: 0.124
+- Conclusion: Results align with the intrinsic variability of the problem; prior sub-$5K MAEs were unrealistic and likely due to leakage. We now prevent leakage via a single Pipeline with transformers fitted on train only, after deduplication and temporal splitting.
+- Uncertainty: 90% conformal coverage ≈ 0.719, average interval width ≈ $161,475.
 
 ### 🚀 Week 4 Achievements - Advanced Model Selection & Hyperparameter Tuning
 
@@ -399,3 +460,34 @@ This project represents **enterprise-level data science** with comprehensive mod
 ✅ **Technical Excellence**: Advanced feature engineering and ensemble modeling  
 
 **Status**: 🚀 **PRODUCTION DEPLOYED** - Ready for enterprise salary prediction applications.
+
+## 📁 Project Structure (current)
+
+```
+yan-cotta/
+├── archive/
+│   └── salaries.csv
+├── mlpaygrade_exploration_archive.ipynb
+├── models/
+│   ├── xgb_pipeline.pkl
+│   ├── xgb_metrics.json
+│   ├── xgb_mapie.pkl
+│   └── xgb_intervals.json
+├── outputs/
+│   ├── group_ceiling_metrics.json
+│   ├── group_kfold_metrics.json
+│   ├── group_stats.csv
+│   └── shap_top20.json
+├── report.md
+├── README.md
+├── scripts/
+│   ├── add_cpi_features.py
+│   ├── add_intervals.py
+│   ├── group_ceiling.py
+│   ├── group_kfold_eval.py
+│   ├── shap_importance.py
+│   ├── train_xgb_pipeline.py
+│   └── utils/
+│       └── feature_engineering.py
+└── streamlit_app.py
+```
