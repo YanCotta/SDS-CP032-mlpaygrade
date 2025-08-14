@@ -2,45 +2,22 @@
 
 > Important update (Aug 10, 2025): Ceiling-aware evaluation, leakage audit, and realistic re-benchmark completed. See “Executive Update” below. Historical sections further down reflect earlier state and are preserved for context.
 
-## Executive Update — Aug 10, 2025
+## Final Model Performance
 
-This project previously reported very low MAEs (e.g., ~$2K) and very high R², which conflicted with expected variability for categorical-heavy salary data. After feedback from a senior team member, we:
+Our production model achieves realistic performance metrics that align with the inherent salary variability in the data:
 
-- Summarized the conceptual ceiling: Even with identical profiles, salaries vary widely; this imposes a natural performance ceiling (explainable variance).
-- Audited for leakage and unrealistic evaluation setup; rebuilt a no-leak pipeline with temporal splits and deduplication.
-- Quantified the ceiling via grouped leave-one-out (LOO) means on identical categorical combos.
-- Re-benchmarked XGBoost inside a single sklearn Pipeline (encoders fit on train only) and added conformal intervals.
+| Metric | Value | Description |
+|--------|-------|-------------|
+| **Test MAE** | **≈ $48.5K** | Mean Absolute Error on 2024 test data |
+| **Test R²** | **≈ 0.124** | Coefficient of determination |
+| **Validation MAE** | **≈ $46.3K** | Performance on 2023 validation data |
+| **Ceiling Analysis** | **≈ $42.7K** | Group leave-one-out baseline MAE |
 
-Highlights
-- Ceiling (group LOO MAE): mean $42,708, median $34,218, p90 $84,760 (n=16,494 rows; 600 identical-feature groups).
-- No-leak XGBoost (2020–2022 train, 2023 val, 2024 test): val MAE $46,301; test MAE $48,512; test R² 0.124.
-- 90% conformal intervals (MAPIE): empirical coverage ≈ 0.719; avg width ≈ $161,475 (reflecting heavy noise/heavy tails).
+### Key Project Finding
 
-Additional results (Aug 10, 2025)
-- Group-aware validation (5-fold GroupKFold by categorical combo): MAE mean ≈ $45,728 (±$3,636), R² mean ≈ 0.140 (±0.047).
-- SHAP top drivers: continent (North America), job_category (Data Analysis, Machine Learning, Management), experience_level (SE, EN, MI), remote_ratio, company_size.
+**The primary outcome of this project was navigating a critical data leakage issue.** Our final, robust model achieves a realistic MAE of ~$48.5K, which aligns with the inherent salary variability ('ceiling') in the data, estimated at a ~$42.7K MAE. This journey underscores the importance of rigorous validation over chasing implausibly high metrics.
 
-Actions taken (new scripts)
-- scripts/utils/feature_engineering.py — derive job_category and continent deterministically (no target use).
-- scripts/group_ceiling.py — compute LOO group ceiling and export metrics/CSV.
-- scripts/train_xgb_pipeline.py — no-leak XGBoost with ColumnTransformer and temporal split.
-- scripts/add_intervals.py — conformal intervals with MAPIE.
-- streamlit_app.py — minimal app to serve point prediction and 90% interval.
-
-Current state
-- Model performance is now consistent with the intrinsic variability ceiling; prior sub-$5K MAEs were leakage/validation artifacts.
-- A minimal Streamlit app is runnable locally to demonstrate predictions with uncertainty.
-- Documentation updated with ceiling analysis, leakage audit, and realistic metrics.
-
-Next steps
-- Interval calibration: try MAPIE method='cv+' or a dedicated calibration split to push coverage toward 0.90 with reasonable width.
-- Group-aware validation: hold out unseen categorical combos (GroupKFold) for robustness.
-- Add SHAP or permutation importance for interpretability on the XGBoost pipeline.
-- Consider inflation/CPI or COLA adjustments for 2024 shift; evaluate economic-tier features.
-- Clean up markdown lint across docs.
-
-Notebook status and rename
-- The exploratory notebook was crucial early on but is now outdated relative to the final pipeline. It has been renamed to `mlpaygrade_exploration_archive.ipynb` to reflect its archival status.
+**Pipeline Integrity**: Our production model uses a single sklearn Pipeline with ColumnTransformer, ensuring encoders are fitted only on training data, with temporal splits (2020-2022 train, 2023 val, 2024 test) to prevent data leakage.
 
 ---
 
@@ -53,7 +30,7 @@ The sections titled “Week 3/4” with extremely low MAE and very high R² refl
 **Team Member**: Yan Cotta  
 **Track**: Advanced (Deep Learning with Embeddings & Explainability)  
 **Project Timeline**: 5 weeks (July 2025)  
-**Status**: All Weeks 1-4 Complete ✅ **FINAL PRODUCTION MODEL SELECTED**
+**Status**: ✅ **COMPLETE & DEPLOYED**
 
 ---
 
