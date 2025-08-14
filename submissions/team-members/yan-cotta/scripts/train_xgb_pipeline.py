@@ -1,3 +1,20 @@
+"""
+MLPayGrade XGBoost Training Pipeline - PRODUCTION VERSION
+
+This script implements the final, leak-proof training pipeline using:
+- sklearn.pipeline.Pipeline with ColumnTransformer (fitted on train only)
+- Temporal splits: 2020-2022 train, 2023 val, 2024 test
+- Deduplication to prevent data leakage
+- Deterministic feature engineering
+
+DEPRECATED ARTIFACTS (DO NOT USE):
+- preprocessed_mlpaygrade_data.csv (legacy preprocessing)
+- salary_encoders.pkl (legacy encoders) 
+- salary_scaler.pkl (legacy scalers)
+
+Use only the Pipeline object saved by this script for training/inference.
+"""
+
 import json
 from pathlib import Path
 import numpy as np
