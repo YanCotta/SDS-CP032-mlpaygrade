@@ -1,8 +1,5 @@
 # 📄 MLPayGrade – Project Report - 🔴 **Advanced Track**
 
-Welcome to your personal project report!
-Use this file to answer the key reflection questions for each phase of the project. This report is designed to help you think like a data scientist, guide AI tools more effectively, and prepare for real-world job interviews.
-
 ---
 
 ## ✅ Week 1: Setup & Exploratory Data Analysis (EDA)
@@ -32,9 +29,9 @@ Figure 3: Median Salaries by Job Experience and Remote Work
 ### 🔑 Question 3: Are there differences in salary based on company size or location?
 
 * Company Size: M (median at 143K) > L (136K) > S (71K) in typical median salary (Figure 1).
-* new variable: company_location is grouped by continent.
+* new variable: company_location and employee_continent is grouped by continent.
 * Continent: North America offers highest salaries on average at 147K, then Oceania (115K) and Europe (69K), with Asia/Africa/South America much lower.
-* Company Continent vs Salary: Consistently large differences, confirmed both by boxplot (Figure 1) and heatmap (Figure 3).
+* Employee Continent vs Salary: Consistently large differences, confirmed both by boxplot (Figure 1) and heatmap (Figure 3).
 
 ### 🔑 Question 4: How consistent are salaries across similar job titles?
 
@@ -81,9 +78,9 @@ Figure 7: Log Salary Distribution
 #### 🔑 Question 3:
 **Did you create any new features based on domain knowledge or data relationships? If yes, what are they and why might they help the model predict salary more accurately?**  
 
-* job_level: Extracted seniority/leadership (via leadership_label), with 3 levels: Staff, Manager, Head
-* Experience by Job Type: exp_level_job
-* Employee/Company continent interaction: exp_level_econtinent, work_year_econtinent, same_continent
+* job_level: Extracted seniority/leadership (via ``leadership_label`` function), with 3 levels: Staff, Manager, Head
+* Experience by Job Type interaction feature: exp_level_job
+* Employee continent interaction: exp_level_econtinent (experience level and employee continent), work_year_econtinent (work year and employee continent), same_continent
 * Popularity: job_title_popularity (job title frequencies)
 * Clustering: KMeans group of (employee_residence, job_title)
 * Macro: Merged in GDP per country/year.
@@ -132,25 +129,32 @@ Figure 8: Categorical Value Counts by Features
 **What does your neural network architecture look like (input dimensions, hidden layers, activation functions, output layer), and why did you choose this structure?**  
 🎯 *Purpose: Tests architectural understanding and reasoning behind model design.*
 
-💡 **Hint:**  
-Describe your FFNN: number of layers, units per layer, ReLU activations, batch normalization, dropout rates, etc.  
-Explain why this architecture fits the tabular regression task (salary prediction).  
-Include code and rationale for each component.
+The neural network built for this tabular regression problem is a feed-forward neural network (FFNN) with the following structure:
 
-✏️ *Your answer here...*
+* Input layer: Number of neurons equals the input features (from preprocessed schema).
+* Hidden layers:
+
+    Layer 1: 128 neurons + ReLU activation + Dropout(0.2)
+
+    Layer 2: 64 neurons + ReLU activation + Dropout(0.2)
+
+    Layer 3: 32 neurons + ReLU activation + Dropout(0.2)
+
+* Output layer: 1 neuron (predicts the log-transformed salary)
 
 ---
 
 ### 🔑 Question 2:
-**What loss function, optimizer, and evaluation metrics did you use during training? How did these choices influence your model’s learning behavior?**  
+**What loss function, optimizer, and evaluation metrics did you use during training? How did these choices influence your model’s learning behavior?**
 🎯 *Purpose: Tests knowledge of training dynamics and evaluation strategy.*
 
-💡 **Hint:**  
-Use MSE or MAE as loss (for regression), Adam or SGD as optimizer.  
-Track RMSE, MAE, R².  
-Reflect on how your metric trends evolved over epochs — was the model improving or plateauing?
+* Loss Function: Mean Squared Error (MSE), which is ideal for regression and measures the average squared difference between predicted and actual values.
+* Optimizer: Adam, chosen for its reliability and speed in training neural networks.
+* Metrics tracked: RMSE (root mean squared error), MAE (mean absolute error), $R^2$ (coefficient of determination).
+* Trends during training: Both train and test loss curves drop sharply and then flatten out (see Figure 9), indicating effective fitting and good generalization.
 
-✏️ *Your answer here...*
+![ANN Training and Test Loss](img/ann_training_loss.png)
+Figure 9: ANN Training and Test Loss
 
 ---
 
@@ -158,13 +162,9 @@ Reflect on how your metric trends evolved over epochs — was the model improvin
 **How did your model perform on the training and validation sets across epochs, and what signs of overfitting or underfitting did you observe?**  
 🎯 *Purpose: Tests ability to diagnose model behavior using learning curves.*
 
-💡 **Hint:**  
-Plot loss and metrics over time.  
-Overfitting → validation error increases while training error decreases.  
-Underfitting → both remain high.  
-Include screenshots or plots and interpretation.
-
-✏️ *Your answer here...*
+* Both train and test loss decrease steadily during the first ~40 epochs, then plateau around epoch 60, with no sign of the test loss rebounding, which would indicate overfitting.
+* Since test loss remains close to train loss, the model does not overfit; both losses converge smoothly toward zero.
+* No signs of underfitting (would see loss curves stuck at high values).
 
 ---
 
@@ -172,12 +172,70 @@ Include screenshots or plots and interpretation.
 **How did your deep learning model compare to a traditional baseline (e.g., Linear Regression or XGBoost), and what might explain the difference in performance?**  
 🎯 *Purpose: Encourages comparative evaluation and model introspection.*
 
-💡 **Hint:**  
-Train a traditional model and compare RMSE, MAE, R².  
-If the FFNN underperforms, discuss whether you need more tuning, more data, or regularization.  
-If it outperforms, explain what complex patterns it likely captured.
+| Metrics | Random Forest | Bagging Regression | Neural Network | Symbolic Regression |
+| ------- |---------------|--------------------|----------------|---------------------|
+| MSE     | 0.12          | 0.11               | 0.12           | 0.13                |
+| RMSE    | 0.34          | 0.33               | 0.35           | 0.36                |
+| MAE     | 0.27          | 0.26               | 0.27           | 0.28                |
+| R2      | 0.48          | 0.501              | 0.46           | 0.42                |
 
-✏️ *Your answer here...*
+Table 1: Performance metrics in log scale
+
+| Metrics | Random Forest    | Bagging Regression | Neural Network   | Symbolic Regression |
+| ------- |------------------|--------------------|------------------|---------------------|
+| MSE     | 2,746,636,331.44 | 2,680,264,159.26   | 2,922,607,872.00 | 3,028,160,752.11    |
+| RMSE    | 52,408.36        | 51,771.27          | 54,061.15        | 55,028.73           |
+| MAE     | 38,338.30        | 38,151.27          | 39,074.49        | 40,069.31           |
+
+Table 2: Performance metrics in original (USD) scale
+
+Symbolic Regression best equation:
+$$
+\begin{aligned}
+\text{Prediction} =\ & 11.656504\ -\ (-1) \times 0.10735378 \Big( x_0 + x_{40} + x_{59} - (x_{141} - x_{25} + x_{33} + 1.8043643 )\\
+&\quad - (-1) \times 0.10735378 \frac{ \big( x_0 - 0.72659254\, x_{106} + x_{141} + x_{149} + x_{33} - \sin(0.20380472) + 1.8043643 + 2.2645884 \big) }{0.4817265} + 2.2645884 \Big)
+\end{aligned}
+$$
+
+Symbolic Regression Feature Selection:
+* $x_{0}$: nom__employee_continent_North America
+* $x_{25}$: nom__exp_level_job_SE_Others
+* $x_{33}$: nom__employment_type_FT
+* $x_{40}$: nom__exp_level_job_MI_BI
+* $x_{59}$: nom__work_year_econtinent_2024_Africa
+* $x_{106}$: nom__work_year_econtinent_2020_North America
+* $x_{141}$: nom__work_year_econtinent_2024_South America
+* $x_{149}$: nom__salary_currency_NZD
+
+The performance differences across models stem from their underlying learning strategies and flexibility:
+
+* Random Forest and Bagging Regression slightly outperform Neural Network and Symbolic Regression, suggesting that ensemble tree methods are particularly effective for this problem, likely due to their ability to capture non-linear feature interactions and handle diverse categorical encodings common in salary data.
+
+* Neural Network (Feedforward) performs competitively but slightly worse. This might be because it requires more data or careful tuning to generalize well, and tabular data can be less suited to deep learning unless there are strong non-linear patterns or interactions.
+
+* Symbolic Regression lags a bit behind on all metrics but delivers a unique advantage: interpretability. Its slightly higher error is the tradeoff for being able to express predictive rules as explicit mathematical formulas rather than black-box strategy.
+
+Symbolic regression is a machine learning method that automatically finds mathematical expressions—using basic arithmetic operations, functions, and feature combinations—that best fit the data.
+Unlike linear regression, which fits a fixed model, symbolic regression searches the space of all possible formulas to identify an algebraic equation explaining/predicting the target as a function of input variables.
+
+* Pros: Produces human-interpretable equations, highlights key features, and can reveal novel relationships.
+* Cons: Often less accurate than large ensembles or deep nets on complex data, especially if the best-fit relationship is not neatly expressible as a compact equation.
+
+The symbolic regression equation combines relevant feature values with interaction terms and some small constants to predict the (log) salary. Although more complex than a linear model, it remains interpretable, showing which features are most impactful in the final prediction. Each selected feature has a direct, linear impact on the target (log salary). Pairs and triples of features interact, via grouped additions and subtractions, enabling the equation to "fit" local, mixed influence between job type, region, experience and pay currency. If any feature switches on (from 0 to 1), we can trace exactly how much log-salary changes.
+
+How the Equation Works:
+
+* Base Salary (log-scale):
+    11.656504 is the starting "average" log-salary.
+
+* Modifiers (Demographic/Job characteristics):
+    Salary is increased or decreased based on whether an employee or job fits any of the categories above. For example: being in North America ($x_0$), holding certain roles ($x_{40}, x_{25}$), and job type ($x_{33}$) all add or subtract from the base.
+
+* Nested Interactions:
+    The way these terms are grouped/subtracted, and then again modified by smaller scaling factors, captures subtle, nonlinear relationships and offsets between features, for instance, interacting regions and job level/year.
+
+* Final Prediction:
+    The overall output tells us the predicted log-salary for someone with the given attributes, as a sum of base, directly weighted indicators, and composite interaction corrections.
 
 ---
 
@@ -185,12 +243,12 @@ If it outperforms, explain what complex patterns it likely captured.
 **What did you log with MLflow (e.g., architecture parameters, metrics, model versions), and how did tracking help guide your experimentation?**  
 🎯 *Purpose: Tests reproducibility and experiment management awareness.*
 
-💡 **Hint:**  
-Track model depth, units, dropout rate, learning rate, validation scores.  
-Show how MLflow helped you compare runs, spot trends, or pick the best model.  
-Include run screenshots or output tables.
+* Tracked with MLflow: model architecture (number of layers, units) for neural network and parameters for other models, $MSE, RMSE, MAE$, and $R^2$.
+* MLflow allows easy performance comparison between one model while doing feature engineering process, and later between different models. Noted that: I don't tune neural network in this project.
 
-✏️ *Your answer here...*
+![MSE comparison](img/mlflow_mse.png)
+![R2 comparison](img/mlflow_r2.png)
+Figure 10: MLFlow outputs
 
 ---
 
@@ -201,11 +259,15 @@ Include run screenshots or output tables.
 **Which neural network architecture and hyperparameters did you experiment with, and how did you decide what to tune?**
 🎯 *Purpose: Tests understanding of architectural design and tuning for tabular deep learning.*
 
-💡 **Hint:**
-Tuning ideas include: number of layers, neurons per layer, dropout rate, batch size, learning rate.
-Justify choices based on previous results and known model behaviors.
+For this project, I used a standard feedforward neural network (FFNN) with three fully connected layers:
 
-✏️ *Your answer here...*
+* Layers: 128, 64, and 32 units respectively, each followed by ReLU activation and Dropout (rate 0.2).
+
+* Output: Single neuron for regression target.
+
+I initially considered tuning standard hyperparameters such as the number of layers, width of each layer, dropout rate, optimizer, batch size, and learning rate. However, after several exploratory experiments and comparisons, I observed that—in this tabular regression context—FFNN performance was quite robust to moderate hyperparameter changes. Beyond a basic level of tuning, additional architectural adjustments resulted in only marginal gains, often drowned out by noise or overfitting risks.
+
+Therefore, rather than extensive neural network tuning, I focused efforts on symbolic regression (using PySR) where the impact of tuning is greater due to the large variety in possible functional forms and equation complexities.
 
 ---
 
@@ -214,13 +276,7 @@ Justify choices based on previous results and known model behaviors.
 **What tuning strategy did you follow (manual, scheduler-based, Optuna, etc.) and how did it help refine your model?**
 🎯 *Purpose: Evaluates ability to apply efficient search strategies for optimization.*
 
-💡 **Hint:**
-Manual tuning = more control but slower.
-Optuna/RandomSearch = broader coverage.
-Schedulers = dynamic adjustment during training.
-Explain tradeoffs and justify your approach.
-
-✏️ *Your answer here...*
+For symbolic regression, I adopted an automated hyperparameter search strategy using Optuna. Unlike manual tuning, which is slow and labor-intensive, Optuna streamlines the process—making model refinement much easier and more efficient. With Optuna, I defined a search space for key symbolic regression parameters (such as population size, number of iterations, and complexity penalties), and the framework handled the optimization process automatically. It ran multiple trials in parallel, evaluated performance on the validation set for each configuration, and quickly homed in on the best combination of hyperparameters that balanced accuracy and equation interpretability. This approach enabled me to focus on results rather than repetitive code changes, and provided a much broader, and more reliable exploration of possible models than manual adjustment. Optuna made it effortless to refine the symbolic regression model, saving both time and computational resources while systematically improving performance.
 
 ---
 
@@ -229,12 +285,16 @@ Explain tradeoffs and justify your approach.
 **How did you monitor and evaluate the effect of tuning on model performance? Which metrics did you track and how did they change?**
 🎯 *Purpose: Tests analytical thinking and metric interpretation skills.*
 
-💡 **Hint:**
-Track F1, MAE, RMSE, or R² across validation.
-Use MLflow to visualize trends.
-Mention learning curves, performance on different splits, and early stopping if used.
+* Tracked MSE, RMSE, MAE, and R² on both log-transformed and original (exponentiated) scales for test and validation splits.
 
-✏️ *Your answer here...*
+* For FFNN: Used learning curves (train/test loss over epochs) and validation metrics after training. Plotted the evolution of loss and checked for overfitting/underfitting.
+
+* For Symbolic Regression: Monitored loss vs. equation complexity, Optuna search progress, and validation scores for candidate equations. PySR performance and equation simplicity were very sensitive to hyperparameters and search strategy.
+
+![Symbolic Regression Loss over Complexity Level](img/mlflow_r2.png)
+Figure 11: Symbolic Regression Loss over Complexity Level
+
+* Used MLflow to record and visualize all key metrics, parameters and runs.
 
 ---
 
@@ -243,11 +303,7 @@ Mention learning curves, performance on different splits, and early stopping if 
 **What did MLflow reveal about your tuning experiments, and how did it help in selecting your final model configuration?**
 🎯 *Purpose: Encourages tool-based reflection on the model development process.*
 
-💡 **Hint:**
-Discuss MLflow runs, comparison plots, parameter filtering.
-Explain how it saved time or revealed overlooked patterns.
-
-✏️ *Your answer here...*
+In this project, I found that MLflow provided a robust framework for logging model runs, hyperparameters, and metrics, but its true practical benefits were less pronounced in a solo workflow. Since I was the only team member, the process of managing model comparisons and tracking performance remained entirely manageable through my own organized tables and Jupyter notebooks. While MLflow did help centralize experiment records, visualize learning curves, and keep a systematic archive, I didn’t experience significant advantages over my usual manual methods for model selection or result tracking. For this project, tracking experiments with classic Python tools proved sufficient, and MLflow’s capabilities, though impressive for larger teams or more complex collaborative environments, didn’t provide a notable improvement in my personal workflow.
 
 ---
 
@@ -256,31 +312,94 @@ Explain how it saved time or revealed overlooked patterns.
 **What is your final model setup (architecture + hyperparameters), and why do you believe it’s the most generalizable?**
 🎯 *Purpose: Tests ability to justify final model selection with evidence and insight.*
 
-💡 **Hint:**
-Include a summary of hyperparameters, loss function, optimizer.
-Explain why this configuration balances performance and simplicity.
-Support decision with validation performance and interpretability where possible.
+The final model configuration I selected is the symbolic regression (SR) model produced by PySR, tuned with Optuna. While the feedforward neural network (FFNN) serves as a strong universal regressor and performed competitively on this tabular data, several factors make symbolic regression potentially more generalizable in this scenario.
 
-✏️ *Your answer here...*
+First, the SR model generates explicit mathematical equations that directly reveal the true underlying patterns in the data, rather than memorizing complex, high-dimensional weight interactions as a neural network does. The symbolic formula is inherently less prone to overfitting: it only includes features and interactions that are repeatedly found to improve validation performance during the evolutionary search. Complexity penalties and functional constraints—optimized automatically via Optuna—ensure that the final selected equation isn’t just accurate on the training set, but also remains simple enough to apply meaningfully to new, unseen data.
+
+In contrast, while an FFNN can fit a wide variety of functional relationships, it requires careful regularization and substantial amounts of data to truly avoid overfitting, especially on tabular datasets with many engineered or sparse features. Neural networks are often “black boxes,” making it difficult to diagnose or prevent subtle overfitting without exhaustive testing and advanced regularization strategies. In practice, as observed in my experiments, tuning the neural net yielded only incremental gains, and the risk of learning spurious patterns persisted, particularly as layer depth increases.
+
+By contrast, the SR model distilled the relationship between salary and features into a concise, auditable formula, targeting only the truly relevant variables (such as region, job type, year, and pay currency). This transparency not only aids human interpretability but also enhances robustness when faced with new data distributions, as the risk of hidden, overfit relationships is minimized.
+
+When comparing symbolic regression (SR) with ensemble methods like Random Forest or Bagging Regression, each approach brings unique strengths that are highly complementary for salary prediction on tabular data.
+
+Ensemble methods—such as Random Forest and Bagging Regression, excel at predictive accuracy and robustness. They are particularly good at capturing complex non-linear relationships, handling high-cardinality categorical variables, and mitigating overfitting via aggregation across many trees. In the experiments, ensemble models consistently delivered the best metrics, making them highly reliable for straightforward prediction tasks where model interpretability is less critical.
+
+Symbolic regression, on the other hand, generates an explicit, human-readable equation that describes how features interact to predict salary. While its raw predictive performance can lag slightly behind ensembles, SR models offer transparency and insight: stakeholders can clearly see which features matter, in what combinations, and how changes will quantitatively affect the outcome. The simplicity of the SR formula can also enhance its robustness to drift in data distributions, and makes it much easier to audit or deploy in settings where explainability is essential.
+
+For this reason, my final workflow will utilize both the ensemble and symbolic regression models:
+
+* Ensemble method for production prediction, scoring, and robust benchmarks—leveraging superior accuracy and resilience to data peculiarities.
+
+* Symbolic regression for interpretability, feature importance analysis, transparency, and stakeholder communication—allowing clear audit trails and better trust in results.
+
 
 ---
 
 
 ## ✅ Week 5: Model Deployment
 
-> Document your approach to building and deploying the Streamlit app, including design decisions, deployment steps, and challenges.
-
 ### 🔑 Question 1:
+**How did you architect the Streamlit app to support both model inference and explainability (e.g., SHAP visualizations)? What design decisions did you make to balance usability and technical depth?**
+🎯 *Purpose: Tests ability to design advanced user interfaces for ML apps.*
 
-### 🔑 Question 2:
+💡 **Hint:**
+Describe how you structured the app (e.g., tabs, sidebar, input forms, output panels).
+Explain how you integrated model predictions and SHAP explanations.
+Discuss tradeoffs between simplicity and providing detailed insights for advanced users.
 
-### 🔑 Question 3:
-
-### 🔑 Question 4:
-
-### 🔑 Question 5:
+✏️ *Your answer here...*
 
 ---
+
+### 🔑 Question 2:
+**Detail the steps you took to deploy your deep learning model and Streamlit app. What technical challenges did you face (e.g., model serialization, dependency management, cloud limits), and how did you resolve them?**
+🎯 *Purpose: Evaluates practical deployment skills and troubleshooting with deep learning models.*
+
+💡 **Hint:**
+List steps for saving/loading the model, preparing requirements, and deploying to Streamlit Cloud or Hugging Face Spaces.
+Mention issues with model size, inference speed, or library versions.
+Explain how you debugged or optimized deployment.
+
+✏️ *Your answer here...*
+
+---
+
+### 🔑 Question 3:
+**How did you ensure your deployed app is robust, secure, and scalable for public use?**
+🎯 *Purpose: Tests awareness of production-readiness, security, and reliability.*
+
+💡 **Hint:**
+Discuss input validation, error handling, and resource management.
+Mention protecting sensitive data, limiting model exposure, and handling unexpected or malicious inputs.
+Explain any monitoring or update strategies you implemented.
+
+✏️ *Your answer here...*
+
+---
+
+### 🔑 Question 4:
+**How would you communicate the app’s predictions and SHAP-based explanations to a non-technical stakeholder?**
+🎯 *Purpose: Evaluates ability to bridge technical and non-technical audiences, especially with explainability tools.*
+
+💡 **Hint:**
+Describe how you’d explain what the prediction means and how SHAP values show feature impact.
+Use analogies or simple visuals.
+Address uncertainty and limitations in both prediction and explanation.
+
+✏️ *Your answer here...*
+
+---
+
+### 🔑 Question 5:
+**If you were to extend your deployed app, what advanced features or improvements would you add, and how would they benefit users or stakeholders?**
+🎯 *Purpose: Tests product thinking and ability to iterate on advanced ML solutions.*
+
+💡 **Hint:**
+Suggest features like batch predictions, downloadable reports, user authentication, or real-time monitoring.
+Discuss adding more interpretability tools, support for new data, or integration with business systems.
+Explain the value these enhancements would provide.
+
+✏️ *Your answer
 
 ## ✨ Final Reflections
 
