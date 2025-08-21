@@ -22,6 +22,7 @@
 * Heatmap of experience_level vs remote_ratio median salary (Figure 3) also confirms that, especially at Executive level, 100% remote fetches higher median salary.
 
 ![Median Salaries by Job Experience and Remote Work](output/img/median_salaries_heatmap.png)
+
 **Figure 3**: Median Salaries by Job Experience and Remote Work
 
 ### 🔑 Question 3: Are there differences in salary based on company size or location?
@@ -190,12 +191,7 @@ The neural network built for this tabular regression problem is a feed-forward n
 **Table 2**: Performance metrics in original (USD) scale
 
 Symbolic Regression best equation:
-$$
-\begin{aligned}
-\text{Prediction} =\ & 11.656504\ -\ (-1) \times 0.10735378 \Big( x_0 + x_{40} + x_{59} - (x_{141} - x_{25} + x_{33} + 1.8043643 )\\
-&\quad - (-1) \times 0.10735378 \frac{ \big( x_0 - 0.72659254\, x_{106} + x_{141} + x_{149} + x_{33} - \sin(0.20380472) + 1.8043643 + 2.2645884 \big) }{0.4817265} + 2.2645884 \Big)
-\end{aligned}
-$$
+![Symbolic Regression best equation](output/img/sr_equation.png)
 
 Symbolic Regression Feature Selection:
 * $x_{0}$: nom__employee_continent_North America
@@ -248,7 +244,7 @@ How the Equation Works:
 
 ![MSE comparison](output/img/mlflow_mse.png)
 ![R2 comparison](output/img/mlflow_r2.png)
-**Figure 10**: MLFlow outputs
+**Figure 10**: MLFlow outputs. $MSE$ comparison (top), $R^2$ comparison (bottom)
 
 ---
 
