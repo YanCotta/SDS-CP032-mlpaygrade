@@ -17,8 +17,8 @@ preprocessed_data = my_folder/"output/preprocessed_data"
 ct = joblib.load(output/'models/column_transformer.joblib')
 sc = joblib.load(output/'models/scaler.joblib')
 model = joblib.load(output/'models/random_forest_regressor.joblib')
-df = pd.read_csv(source_data/'salaries.csv')
 ref_df = pd.read_csv(output/'preprocessed_data/st_reference.csv')
+salary_in_usd = np.load(preprocessed_data/'salary_in_usd.npy', allow_pickle=True)
 job_titles = np.load(preprocessed_data/'job_titles.npy', allow_pickle=True)
 salary_currency = np.load(preprocessed_data/'salary_currency.npy', allow_pickle=True)
 employee_residence = np.load(preprocessed_data/'employee_residence.npy', allow_pickle=True)
@@ -204,7 +204,7 @@ if btn_predict:
 
     st.subheader("Your Predicted Salary vs. Global Market")
     fig, ax = plt.subplots(figsize=(8, 4))
-    sns.histplot(df['salary_in_usd'], bins=40, kde=True, color='skyblue', ax=ax)
+    sns.histplot(salary_in_usd, bins=40, kde=True, color='skyblue', ax=ax)
     ax.axvline(pred_usd[0], color='crimson', linewidth=2, label='Your Prediction')
     ax.set_xlabel('Annual Salary (USD)', fontsize=12)
     ax.set_ylabel('Number of Entries', fontsize=12)
