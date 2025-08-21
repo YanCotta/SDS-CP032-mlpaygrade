@@ -82,7 +82,7 @@
 * Employee continent interaction: exp_level_econtinent (experience level and employee continent), work_year_econtinent (work year and employee continent), same_continent
 * Popularity: job_title_popularity (job title frequencies)
 * Clustering: KMeans group of (employee_residence, job_title)
-* Macro: Merged in GDP per country per year.
+* Macro: Merged in GDP per country per year (data downloadable at [worldbank.org](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD)).
 * Log Salary: Target transformed to log_salaries.
 
 ---
