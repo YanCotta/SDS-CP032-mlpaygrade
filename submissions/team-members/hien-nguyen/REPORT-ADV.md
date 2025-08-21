@@ -4,8 +4,6 @@
 
 ## ✅ Week 1: Setup & Exploratory Data Analysis (EDA)
 
-> Answer the EDA questions provided in the project materials here. Focus on data quality, trends, anomalies, and relationships.
-
 ### 🔑 Question 1: What roles or experience levels yield the highest average salary?
 
 * New variable: job_type groups (Data, BI, ML, AI, Robotics, Others) is created from job_title.
@@ -13,18 +11,18 @@
 * EX (Executive) and SE (Senior) consistently earn most; EN (Entry) the least. Median salary line plot over years (Fifure 2) confirms EX>SE>MI>EN.
 
 ![Salaries Distribution by Category](output/img/all_features_boxplots.png)
-Figure 1: Salaries Distribution by Category
+**Figure 1**: Salaries Distribution by Category
 
-![Median Salaries by Job Experience over the Years](img/median_salaries_lineplot.png)
-Figure 2: Median Salaries by Job Experience over the Years
+![Median Salaries by Job Experience over the Years](output/img/median_salaries_lineplot.png)
+**Figure 2**: Median Salaries by Job Experience over the Years
 
 ### 🔑 Question 2: Does remote work correlate with higher or lower salaries?
 
 * Figure 1 shows 100% remote roles generally have higher median salaries, but with greater spread and more outliers.
 * Heatmap of experience_level vs remote_ratio median salary (Figure 3) also confirms that, especially at Executive level, 100% remote fetches higher median salary.
 
-![Median Salaries by Job Experience and Remote Work](img/median_salaries_heatmap.png)
-Figure 3: Median Salaries by Job Experience and Remote Work
+![Median Salaries by Job Experience and Remote Work](output/img/median_salaries_heatmap.png)
+**Figure 3**: Median Salaries by Job Experience and Remote Work
 
 ### 🔑 Question 3: Are there differences in salary based on company size or location?
 
@@ -39,8 +37,8 @@ Figure 3: Median Salaries by Job Experience and Remote Work
 * Some similar job titles have much higher average salaries but also higher variance, for example Data Scienctist (150K) and Data Science Consultant (112K).
 * The boxplots of salaries by job type (Figure 1) underline an inconsistency: nearly every job type shows a large interquartile range, with numerous outliers both above and below the median. Job types such as Data, ML and AI feature a broad "box" and many dots, emphasizing a lack of consistency.
 
-![Median Salary by Job Title](img/title_salary_barplot.png)
-Figure 4: Median Salary by Job Title
+![Median Salary by Job Title](output/img/title_salary_barplot.png)
+**Figure 4**: Median Salary by Job Title
 
 ---
 
@@ -55,11 +53,11 @@ Figure 4: Median Salary by Job Title
 * job_title and employee_residence are used as categorical inputs to find patterns in salary distribution. Instead of using the raw high-cardinality values directly in the model, I first encoded them with a OneHotEncoder and then applied KMeans clustering to group similar combinations of job title and location together into 10 groups. This new feature acts as a proxy for job–location salary patterns, enabling models to leverage grouped salary behavior without overfitting to individual job titles or locations. Figure 6 is a world map of instances grouped using KMeans.
 * For other categoricals, I use a mix of OneHotEncoder (for nominal) and OrdinalEncoder (for ordered categories such as experience_level, company_size, work_year, remote_ratio).
 
-![Countries Grouped by Continent](img/geogroup_map.png)
-Figure 5: Countries Grouped by Continent
+![Countries Grouped by Continent](output/img/geogroup_map.png)
+**Figure 5**: Countries Grouped by Continent
 
-![Countries Grouped by KMeans Clusters](img/knngroup_map.png)
-Figure 6: Countries Grouped by KMeans Clusters
+![Countries Grouped by KMeans Clusters](output/img/knngroup_map.png)
+**Figure 6**: Countries Grouped by KMeans Clusters
 
 ---
 
@@ -70,8 +68,8 @@ Figure 6: Countries Grouped by KMeans Clusters
 * For targets (salary_in_usd), I also use a log transform (log1p) to reduce skew and stabilize variance.
 * log_salaries are much closer to normal, easing regression (Figure 7).
 
-![Log Salary Distribution](img/logsalaries_histogplot.png)
-Figure 7: Log Salary Distribution
+![Log Salary Distribution](output/img/logsalaries_histogplot.png)
+**Figure 7**: Log Salary Distribution
 
 ---
 
@@ -116,8 +114,8 @@ Imbalance:
 
 * Some features (like groupings or clusters) may remain sparse, but overall the log target and aggregate encodings reduce extreme sparsity from high-cardinality categories.
 
-![Categorical Value Counts by Features](img/all_features_barplots.png)
-Figure 8: Categorical Value Counts by Features
+![Categorical Value Counts by Features](output/img/all_features_barplots.png)
+**Figure 8**: Categorical Value Counts by Features
 
 ---
 
@@ -153,8 +151,8 @@ The neural network built for this tabular regression problem is a feed-forward n
 * Metrics tracked: RMSE (root mean squared error), MAE (mean absolute error), $R^2$ (coefficient of determination).
 * Trends during training: Both train and test loss curves drop sharply and then flatten out (see Figure 9), indicating effective fitting and good generalization.
 
-![ANN Training and Test Loss](img/ann_training_loss.png)
-Figure 9: ANN Training and Test Loss
+![ANN Training and Test Loss](output/img/ann_training_loss.png)
+**Figure 9**: ANN Training and Test Loss
 
 ---
 
@@ -179,7 +177,7 @@ Figure 9: ANN Training and Test Loss
 | MAE     | 0.27          | 0.26               | 0.27           | 0.28                |
 | R2      | 0.48          | 0.501              | 0.46           | 0.42                |
 
-Table 1: Performance metrics in log scale
+**Table 1**: Performance metrics in log scale
 
 | Metrics | Random Forest    | Bagging Regression | Neural Network   | Symbolic Regression |
 | ------- |------------------|--------------------|------------------|---------------------|
@@ -187,7 +185,7 @@ Table 1: Performance metrics in log scale
 | RMSE    | 52,408.36        | 51,771.27          | 54,061.15        | 55,028.73           |
 | MAE     | 38,338.30        | 38,151.27          | 39,074.49        | 40,069.31           |
 
-Table 2: Performance metrics in original (USD) scale
+**Table 2**: Performance metrics in original (USD) scale
 
 Symbolic Regression best equation:
 $$
@@ -246,9 +244,9 @@ How the Equation Works:
 * Tracked with MLflow: model architecture (number of layers, units) for neural network and parameters for other models, $MSE, RMSE, MAE$, and $R^2$.
 * MLflow allows easy performance comparison between one model while doing feature engineering process, and later between different models. Noted that: I don't tune neural network in this project.
 
-![MSE comparison](img/mlflow_mse.png)
-![R2 comparison](img/mlflow_r2.png)
-Figure 10: MLFlow outputs
+![MSE comparison](output/img/mlflow_mse.png)
+![R2 comparison](output/img/mlflow_r2.png)
+**Figure 10**: MLFlow outputs
 
 ---
 
@@ -291,8 +289,8 @@ For symbolic regression, I adopted an automated hyperparameter search strategy u
 
 * For Symbolic Regression: Monitored loss vs. equation complexity, Optuna search progress, and validation scores for candidate equations. PySR performance and equation simplicity were very sensitive to hyperparameters and search strategy.
 
-![Symbolic Regression Loss over Complexity Level](img/mlflow_r2.png)
-Figure 11: Symbolic Regression Loss over Complexity Level
+![Symbolic Regression Loss over Complexity Level](output/img/pysr_loss.png)
+**Figure 11**: Symbolic Regression Loss over Complexity Level
 
 * Used MLflow to record and visualize all key metrics, parameters and runs.
 
