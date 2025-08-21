@@ -8,7 +8,7 @@
 
 * New variable: job_type groups (Data, BI (Business Intelligence), ML, AI, Robotics, Others) is created from job_title.
 * Figure 1 show that AI and ML roles tended to have higher median salaries, with significant outliers among "Others" and some "Data" jobs.
-* EX (Executive) and SE (Senior) consistently earn most; EN (Entry) the least. Median salary line plot over years (Fifure 2) confirms EX>SE>MI>EN.
+* EX (Executive) and SE (Senior) consistently earn most; EN (Entry) the least. Median salary line plot over years (Figure 2) confirms EX>SE>MI>EN.
 
 ![Salaries Distribution by Category](output/img/all_features_boxplots.png)
 **Figure 1**: Salaries Distribution by Category
@@ -18,8 +18,8 @@
 
 ### 🔑 Question 2: Does remote work correlate with higher or lower salaries?
 
-* Figure 1 shows 100% remote roles generally have higher median salaries, but with greater spread and more outliers.
-* Heatmap of experience_level vs remote_ratio median salary (Figure 3) also confirms that, especially at Executive level, 100% remote fetches higher median salary.
+* Figure 1 shows 0% and 100% remote roles generally have competitive median salaries, but with greater spread and more outliers with fully remote work.
+* Heatmap of Job Experience vs Remote Work for median salary (Figure 3, top) also confirms the similarity. However, Executive level with 100% remote fetches higher median salary.
 
 ![Median Salaries by Job Experience and Remote Work](output/img/median_salaries_heatmap.png)
 
@@ -28,9 +28,9 @@
 ### 🔑 Question 3: Are there differences in salary based on company size or location?
 
 * Company Size: M (median at 143K) > L (136K) > S (71K) in typical median salary (Figure 1).
-* new variable: company_location and employee_continent is grouped by continent.
+* New variable: company_location and employee_continent is grouped geographycally by continent.
 * Continent: North America offers highest salaries on average at 147K, then Oceania (115K) and Europe (69K), with Asia/Africa/South America much lower.
-* Employee Continent vs Salary: Consistently large differences, confirmed both by boxplot (Figure 1) and heatmap (Figure 3).
+* Figure 3 (bottom) also confirms that North America consistenly pay higher than other countries across different job types.
 
 ### 🔑 Question 4: How consistent are salaries across similar job titles?
 
@@ -50,7 +50,7 @@
 
 * High-cardinality features: job_title, employee_residence, company_location
 * These variables are dropped from initial modeling due to difficulties for tree models
-* They are both grouped manually based on similar job title name and geography. Figure 5 presents how employee_residence is grouped based on geography.
+* They are grouped manually based on similar job title name and geography. Figure 5 presents how employee_residence is grouped based on geography.
 * job_title and employee_residence are used as categorical inputs to find patterns in salary distribution. Instead of using the raw high-cardinality values directly in the model, I first encoded them with a OneHotEncoder and then applied KMeans clustering to group similar combinations of job title and location together into 10 groups. This new feature acts as a proxy for job–location salary patterns, enabling models to leverage grouped salary behavior without overfitting to individual job titles or locations. Figure 6 is a world map of instances grouped using KMeans.
 * For other categoricals, I use a mix of OneHotEncoder (for nominal (encoded in feature name as "nom__XX")) and OrdinalEncoder (for ordered categories such as experience_level, company_size, work_year, remote_ratio, encoded in feature name as "ord__XX").
 
@@ -70,14 +70,17 @@
 * log_salaries are much closer to normal, easing regression (Figure 7).
 
 ![Log Salary Distribution](output/img/logsalaries_histogplot.png)
-**Figure 7**: Log Salary Distribution
+**Figure 7.a**: Log Salary Distribution
+
+![Salary (USD) Distribution](output/img/salary_histogplot.png)
+**Figure 7.b**: Salary (USD) Distribution
 
 ---
 
 #### 🔑 Question 3:
 **Did you create any new features based on domain knowledge or data relationships? If yes, what are they and why might they help the model predict salary more accurately?**  
 
-* job_level: Extracted seniority/leadership (via ``leadership_label`` function), with 3 levels: Staff, Manager, Head
+* job_level: Extracted seniority/leadership (via ``leadership_label`` function), with 3 levels: Staff, Manager and Head
 * Experience by Job Type interaction feature: exp_level_job
 * Employee continent interaction: exp_level_econtinent (experience level and employee continent), work_year_econtinent (work year and employee continent), same_continent
 * Popularity: job_title_popularity (job title frequencies)
@@ -287,10 +290,11 @@ For symbolic regression, I adopted an automated hyperparameter search strategy u
 
 * For Symbolic Regression: Monitored loss vs. equation complexity, Optuna search progress, and validation scores for candidate equations. PySR performance and equation simplicity were very sensitive to hyperparameters and search strategy.
 
-![Symbolic Regression Loss over Complexity Level](output/img/pysr_loss.png)
-**Figure 11**: Symbolic Regression Loss over Complexity Level
-
 * Used MLflow to record and visualize all key metrics, parameters and runs.
+
+![Symbolic Regression Loss over Complexity Level](output/img/pysr_loss.png)
+
+**Figure 11**: Symbolic Regression Loss over Complexity Level
 
 ---
 
