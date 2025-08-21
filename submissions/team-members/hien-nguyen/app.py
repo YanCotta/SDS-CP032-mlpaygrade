@@ -259,6 +259,11 @@ if btn_predict:
     - The model automatically extracts and combines information from your input, including composite and interaction features that help represent common real-world patterns in pay.
     - Not all subtle, personal, or local factors (like negotiation, company-specific bonuses, cost-of-living quirks) are included.
 
+    **Work Year Assumption**
+    - The app currently assumes your work year is always 2024, because the underlying dataset and model only include information up to 2024, and there is no data available for 2025 or beyond.
+    - If you are planning for a future year, please interpret your results as estimates based on the most up-to-date available data.
+
+
     **Interpretation and Cautions**
     - Use predictions and explanations as **guidance**, not as guaranteed salary offers.
     - The app is meant for benchmarking, educational, and orientation purposes, and does not guarantee employer offers.
