@@ -425,11 +425,4 @@ I would explain:
 
 * Advanced Explainability: Offer interactive SHAP plots, what-if scenario sliders, or counterfactuals (“How much would your salary prediction change if…”). They would benefit users by providing richer insight, more actionable scenarios, and support for both individual users and business stakeholders needing comprehensive salary analytics.
 
-
-## ✨ Final Reflections
-
-> What did you learn from this project? What would you do differently next time? What did AI tools help you with the most?
-
-✏️ *Your final thoughts here...*
-
 ---
