@@ -12,7 +12,7 @@
 * Figure 1 show that AI and ML roles tended to have higher median salaries, with significant outliers among "Others" and some "Data" jobs.
 * EX (Executive) and SE (Senior) consistently earn most; EN (Entry) the least. Median salary line plot over years (Fifure 2) confirms EX>SE>MI>EN.
 
-![Salaries Distribution by Category](img/all_features_boxplots.png)
+![Salaries Distribution by Category](output/img/all_features_boxplots.png)
 Figure 1: Salaries Distribution by Category
 
 ![Median Salaries by Job Experience over the Years](img/median_salaries_lineplot.png)
