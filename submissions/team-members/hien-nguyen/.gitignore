@@ -1,10 +1,10 @@
-__pycache__
-output/models
-outout/preprocessed_data
-output/pysr_outouts
+__pycache__/
+output/models/
+output/preprocessed_data/
+output/pysr_outputs/
 !output/models/.gitkeep
 !output/preprocessed_data/.gitkeep
-!output/pysr_outouts/.gitkeep
-data
+!output/pysr_outputs/.gitkeep
+data/
 !data/.gitkeep
-mlruns
+mlruns/
