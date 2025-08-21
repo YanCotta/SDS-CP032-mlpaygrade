@@ -6,7 +6,7 @@
 
 ### 🔑 Question 1: What roles or experience levels yield the highest average salary?
 
-* New variable: job_type groups (Data, BI, ML, AI, Robotics, Others) is created from job_title.
+* New variable: job_type groups (Data, BI (Business Intelligence), ML, AI, Robotics, Others) is created from job_title.
 * Figure 1 show that AI and ML roles tended to have higher median salaries, with significant outliers among "Others" and some "Data" jobs.
 * EX (Executive) and SE (Senior) consistently earn most; EN (Entry) the least. Median salary line plot over years (Fifure 2) confirms EX>SE>MI>EN.
 
@@ -51,7 +51,7 @@
 * These variables are dropped from initial modeling due to difficulties for tree models
 * They are both grouped manually based on similar job title name and geography. Figure 5 presents how employee_residence is grouped based on geography.
 * job_title and employee_residence are used as categorical inputs to find patterns in salary distribution. Instead of using the raw high-cardinality values directly in the model, I first encoded them with a OneHotEncoder and then applied KMeans clustering to group similar combinations of job title and location together into 10 groups. This new feature acts as a proxy for job–location salary patterns, enabling models to leverage grouped salary behavior without overfitting to individual job titles or locations. Figure 6 is a world map of instances grouped using KMeans.
-* For other categoricals, I use a mix of OneHotEncoder (for nominal) and OrdinalEncoder (for ordered categories such as experience_level, company_size, work_year, remote_ratio).
+* For other categoricals, I use a mix of OneHotEncoder (for nominal (encoded in feature name as "nom__XX")) and OrdinalEncoder (for ordered categories such as experience_level, company_size, work_year, remote_ratio, encoded in feature name as "ord__XX").
 
 ![Countries Grouped by Continent](output/img/geogroup_map.png)
 **Figure 5**: Countries Grouped by Continent
@@ -81,7 +81,7 @@
 * Employee continent interaction: exp_level_econtinent (experience level and employee continent), work_year_econtinent (work year and employee continent), same_continent
 * Popularity: job_title_popularity (job title frequencies)
 * Clustering: KMeans group of (employee_residence, job_title)
-* Macro: Merged in GDP per country/year.
+* Macro: Merged in GDP per country per year.
 * Log Salary: Target transformed to log_salaries.
 
 ---
@@ -103,7 +103,9 @@ Final input:
 
 * 4 ordinal features: experience_level, company_size, work_year, remote_ratio
 
-* 12 nominal features: types, continents, engineered interactions, clusters.
+* 12 nominal features: types, continents, engineered interactions, clusters
+
+* 2 numeric  features: job_title_popularity and GDP_USD
 
 * Target: log_salaries
 
@@ -197,12 +199,12 @@ $$
 
 Symbolic Regression Feature Selection:
 * $x_{0}$: nom__employee_continent_North America
-* $x_{25}$: nom__exp_level_job_SE_Others
+* $x_{25}$: nom__exp_level_job_SE_Others: experience level (Senior) and job type (Others) interaction
 * $x_{33}$: nom__employment_type_FT
-* $x_{40}$: nom__exp_level_job_MI_BI
-* $x_{59}$: nom__work_year_econtinent_2024_Africa
-* $x_{106}$: nom__work_year_econtinent_2020_North America
-* $x_{141}$: nom__work_year_econtinent_2024_South America
+* $x_{40}$: nom__exp_level_job_MI_BI, experience level (Mid Level) and job type (Business Intelligence) interaction
+* $x_{59}$: nom__work_year_econtinent_2024_Africa: work year (2024) and employee continent (Africa) interaction
+* $x_{106}$: nom__work_year_econtinent_2020_North America: work year (2020) and employee continent (North America) interaction
+* $x_{141}$: nom__work_year_econtinent_2024_South America: work year (2024) and employee continent (South America) interaction
 * $x_{149}$: nom__salary_currency_NZD
 
 The performance differences across models stem from their underlying learning strategies and flexibility:
