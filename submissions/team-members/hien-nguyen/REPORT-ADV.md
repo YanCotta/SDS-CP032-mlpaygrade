@@ -211,7 +211,7 @@ The performance differences across models stem from their underlying learning st
 
 * Random Forest and Bagging Regression slightly outperform Neural Network and Symbolic Regression, suggesting that ensemble tree methods are particularly effective for this problem, likely due to their ability to capture non-linear feature interactions and handle diverse categorical encodings common in salary data.
 
-* Neural Network (Feedforward) performs competitively but slightly worse. This might be because it requires more data or careful tuning to generalize well, and tabular data can be less suited to deep learning unless there are strong non-linear patterns or interactions.
+* Neural Network (Feedforward) performs competitively but slightly worse. It might be because it requires more data or careful tuning to generalize well, and tabular data can be less suited to deep learning unless there are strong non-linear patterns or interactions.
 
 * Symbolic Regression lags a bit behind on all metrics but delivers a unique advantage: interpretability. Its slightly higher error is the tradeoff for being able to express predictive rules as explicit mathematical formulas rather than black-box strategy.
 
@@ -276,7 +276,7 @@ Therefore, rather than extensive neural network tuning, I focused efforts on sym
 **What tuning strategy did you follow (manual, scheduler-based, Optuna, etc.) and how did it help refine your model?**
 🎯 *Purpose: Evaluates ability to apply efficient search strategies for optimization.*
 
-For symbolic regression, I adopted an automated hyperparameter search strategy using Optuna. Unlike manual tuning, which is slow and labor-intensive, Optuna streamlines the process—making model refinement much easier and more efficient. With Optuna, I defined a search space for key symbolic regression parameters (such as population size, number of iterations, and complexity penalties), and the framework handled the optimization process automatically. It ran multiple trials in parallel, evaluated performance on the validation set for each configuration, and quickly homed in on the best combination of hyperparameters that balanced accuracy and equation interpretability. This approach enabled me to focus on results rather than repetitive code changes, and provided a much broader, and more reliable exploration of possible models than manual adjustment. Optuna made it effortless to refine the symbolic regression model, saving both time and computational resources while systematically improving performance.
+For symbolic regression, I adopted an automated hyperparameter search strategy using Optuna. Unlike manual tuning, which is slow and labor-intensive, Optuna streamlines the process—making model refinement much easier and more efficient. With Optuna, I defined a search space for key symbolic regression parameters (such as population size, number of iterations, and complexity penalties), and the framework handled the optimization process automatically. It ran multiple trials in parallel, evaluated performance on the validation set for each configuration, and quickly homed in on the best combination of hyperparameters that balanced accuracy and equation interpretability. The approach enabled me to focus on results rather than repetitive code changes, and provided a much broader, and more reliable exploration of possible models than manual adjustment. Optuna made it effortless to refine the symbolic regression model, saving both time and computational resources while systematically improving performance.
 
 ---
 
@@ -318,7 +318,7 @@ First, the SR model generates explicit mathematical equations that directly reve
 
 In contrast, while an FFNN can fit a wide variety of functional relationships, it requires careful regularization and substantial amounts of data to truly avoid overfitting, especially on tabular datasets with many engineered or sparse features. Neural networks are often “black boxes,” making it difficult to diagnose or prevent subtle overfitting without exhaustive testing and advanced regularization strategies. In practice, as observed in my experiments, tuning the neural net yielded only incremental gains, and the risk of learning spurious patterns persisted, particularly as layer depth increases.
 
-By contrast, the SR model distilled the relationship between salary and features into a concise, auditable formula, targeting only the truly relevant variables (such as region, job type, year, and pay currency). This transparency not only aids human interpretability but also enhances robustness when faced with new data distributions, as the risk of hidden, overfit relationships is minimized.
+By contrast, the SR model distilled the relationship between salary and features into a concise, auditable formula, targeting only the truly relevant variables (such as region, job type, year, and pay currency). The transparency not only aids human interpretability but also enhances robustness when faced with new data distributions, as the risk of hidden, overfit relationships is minimized.
 
 When comparing symbolic regression (SR) with ensemble methods like Random Forest or Bagging Regression, each approach brings unique strengths that are highly complementary for salary prediction on tabular data.
 
@@ -332,7 +332,6 @@ For this reason, my final workflow will utilize both the ensemble and symbolic r
 
 * Symbolic regression for interpretability, feature importance analysis, transparency, and stakeholder communication—allowing clear audit trails and better trust in results.
 
-
 ---
 
 
@@ -342,12 +341,13 @@ For this reason, my final workflow will utilize both the ensemble and symbolic r
 **How did you architect the Streamlit app to support both model inference and explainability (e.g., SHAP visualizations)? What design decisions did you make to balance usability and technical depth?**
 🎯 *Purpose: Tests ability to design advanced user interfaces for ML apps.*
 
-💡 **Hint:**
-Describe how you structured the app (e.g., tabs, sidebar, input forms, output panels).
-Explain how you integrated model predictions and SHAP explanations.
-Discuss tradeoffs between simplicity and providing detailed insights for advanced users.
+The Streamlit app is architected with a user-friendly interface centered on clear separation between input, prediction, and explanation:
 
-✏️ *Your answer here...*
+* App Structure: I used a sidebar for all user inputs, including clear field descriptions and dropdowns for feature selection, ensuring accessible and guided input for non-technical users. The main panel displays outputs: predicted salary, visualizations (e.g., market comparison histograms), and SHAP feature contribution barplots.
+
+* Explainability Integration: SHAP is fully integrated. Upon prediction, the app not only displays the salary estimate but also a SHAP-based summary showing how each user-selected factor influenced the prediction. I used aggregation logic to map engineered model features (e.g., one-hot encodings, interactions) back to intuitive input fields, preserving interpretability.
+
+* Balancing Usability and Depth: Simple users see a top-5 feature bar chart with recognizable categories like “Experience Level”, while advanced explanations and important notes for using the app are available via optional expandable sections. It both helps with extra information and keeps the app approachable for deeper inspection from experts or analysts.
 
 ---
 
@@ -355,12 +355,18 @@ Discuss tradeoffs between simplicity and providing detailed insights for advance
 **Detail the steps you took to deploy your deep learning model and Streamlit app. What technical challenges did you face (e.g., model serialization, dependency management, cloud limits), and how did you resolve them?**
 🎯 *Purpose: Evaluates practical deployment skills and troubleshooting with deep learning models.*
 
-💡 **Hint:**
-List steps for saving/loading the model, preparing requirements, and deploying to Streamlit Cloud or Hugging Face Spaces.
-Mention issues with model size, inference speed, or library versions.
-Explain how you debugged or optimized deployment.
+Deployment Steps:
 
-✏️ *Your answer here...*
+* Model Serialization: Saved my trained model, preprocessor (ColumnTransformer), and scaler using joblib to ensure that inference matches training transformations.
+
+* Repo Preparation: Organized all code, model files, and a requirements.txt in a public GitHub repo, listing all necessary dependencies (e.g., streamlit, scikit-learn, shap).
+
+* Deployment Platform: Deployed on Hugging Face Spaces using the Streamlit SDK for zero-config cloud hosting.
+
+Technical Challenges & Solutions:
+
+* File/Directory Structure: Hugging Face Spaces expects everything in the repo root; all paths were checked and, if needed, relative to Path.cwd().
+
 
 ---
 
@@ -368,12 +374,16 @@ Explain how you debugged or optimized deployment.
 **How did you ensure your deployed app is robust, secure, and scalable for public use?**
 🎯 *Purpose: Tests awareness of production-readiness, security, and reliability.*
 
-💡 **Hint:**
-Discuss input validation, error handling, and resource management.
-Mention protecting sensitive data, limiting model exposure, and handling unexpected or malicious inputs.
-Explain any monitoring or update strategies you implemented.
+* Input Validation: Implemented strict type and range checks on all user inputs (e.g., numerical bounds, selectboxes restricted to valid categories), minimizing risk of malformed or malicious data.
 
-✏️ *Your answer here...*
+* Model Exposure: The model runs server-side; users can interact only through the UI—no direct model access or query to internal data is allowed.
+
+* Resource Efficiency: The app loads models and data once per session, minimizing computational load and restart time.
+
+* Sensitive Data: No personal or proprietary data is stored; only anonymized, aggregate benchmark datasets are used. Download links are only for static, non-sensitive data.
+
+* Monitoring & Updates: The app can be updated via push to GitHub, and logs/errors on Hugging Face Spaces are monitored to address any runtime issues promptly.
+
 
 ---
 
@@ -381,12 +391,19 @@ Explain any monitoring or update strategies you implemented.
 **How would you communicate the app’s predictions and SHAP-based explanations to a non-technical stakeholder?**
 🎯 *Purpose: Evaluates ability to bridge technical and non-technical audiences, especially with explainability tools.*
 
-💡 **Hint:**
-Describe how you’d explain what the prediction means and how SHAP values show feature impact.
-Use analogies or simple visuals.
-Address uncertainty and limitations in both prediction and explanation.
+I would explain:
 
-✏️ *Your answer here...*
+* The app provides a data-driven estimate of typical annual salary for your input profile, based on thousands of similar roles.
+
+* The colored bar chart shows which of your choices—like your experience level, job title, or location—had the most impact on your predicted salary.
+
+* Each bar’s length shows its influence; for example, “being a Senior in North America” may have a higher impact than just “Senior” or “North America” alone.
+
+* These estimates are not guarantees, but best-guess projections based on available market data.
+
+* Any differences between prediction and reality may be due to unique factors (negotiation, company perks, local demand, etc.) not captured by the model.
+
+* The explanations are meant to help you understand “what’s driving the estimate,” much like seeing which ingredients make up most of a recipe.
 
 ---
 
@@ -394,12 +411,20 @@ Address uncertainty and limitations in both prediction and explanation.
 **If you were to extend your deployed app, what advanced features or improvements would you add, and how would they benefit users or stakeholders?**
 🎯 *Purpose: Tests product thinking and ability to iterate on advanced ML solutions.*
 
-💡 **Hint:**
-Suggest features like batch predictions, downloadable reports, user authentication, or real-time monitoring.
-Discuss adding more interpretability tools, support for new data, or integration with business systems.
-Explain the value these enhancements would provide.
+* Batch Predictions: Allow uploading spreadsheets for salary benchmarking across teams/companies.
 
-✏️ *Your answer
+* Downloadable Reports: One-click export of prediction results and SHAP explanations for HR documentation or candidate negotiations.
+
+* Personalized Recommendations: Suggest potential career moves (roles, locations, skill upgrades) to maximize salary based on SHAP impact.
+
+* Authentication/History: Add user accounts to save, revisit, and compare scenarios.
+
+* Ensemble/Multiple Models: Give users a “range” from models with different assumptions (e.g., conservative, optimistic, market median).
+
+* Live Market Updates: Integrate web scraping or API data to keep the model’s salary dataset current with real-time benchmarks.
+
+* Advanced Explainability: Offer interactive SHAP plots, what-if scenario sliders, or counterfactuals (“How much would your salary prediction change if…”). They would benefit users by providing richer insight, more actionable scenarios, and support for both individual users and business stakeholders needing comprehensive salary analytics.
+
 
 ## ✨ Final Reflections
 

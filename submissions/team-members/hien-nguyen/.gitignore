@@ -1,0 +1,10 @@
+__pycache__
+output/models
+outout/preprocessed_data
+output/pysr_outouts
+!output/models/.gitkeep
+!output/preprocessed_data/.gitkeep
+!output/pysr_outouts/.gitkeep
+data
+!data/.gitkeep
+mlruns
