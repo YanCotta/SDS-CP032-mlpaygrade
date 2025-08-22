@@ -365,7 +365,18 @@ Deployment Steps:
 
 Technical Challenges & Solutions:
 
-* File/Directory Structure: Hugging Face Spaces expects everything in the repo root; all paths were checked and, if needed, relative to Path.cwd().
+* File Paths & Missing Files
+    FileNotFoundError for model and data files (e.g. /app/output/models/column_transformer.joblib).
+    Learned that only folders included with COPY in the Dockerfile are available in the container.
+    Fixed by adding COPY output/ ./output/ (and other relevant directories) to Dockerfile.
+
+* Unnecessary Dependencies
+    My initial requirements.txt had dozens of irrelevant packages (Jupyter, MLflow, FastAPI, transformers, CUDA, etc.).
+    Simplified to just those needed: streamlit, pandas, numpy, joblib, matplotlib, seaborn, scikit-learn, shap.
+
+* Permission Errors
+    Saw errors like PermissionError: [Errno 13] Permission denied: '/.streamlit'.
+    Fixed by redirecting Streamlit config/cache to a writable temporary directory with os.environ["STREAMLIT_HOME"] = "/tmp" (and similar variables).
 
 
 ---
