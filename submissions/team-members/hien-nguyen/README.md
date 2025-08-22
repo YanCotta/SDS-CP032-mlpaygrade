@@ -55,9 +55,9 @@ A machine learning project (organized by SuperDataScience community) to predict 
 This opens the dashboard locally. You can also go to HuggingFace to try my [Salary Prediction App](https://huggingface.co/spaces/hiennguyen231191/salary-prediction-app).
 
 - Programs description:
-  `app.py`: Streamlit web app for salary prediction (Random Forest model); shows global market comparison and highlights key feature impacts (SHAP).
-  `SymbolicRegression_&_DeepLearning.ipynb` and `EDA&baselines.ipynb`: Notebooks for model training, including EDA, feature engineering, experimentation with deep learning, and interpretable symbolic regression.
-  `REPORT-ADV.md`: Detailed documentation of approach, model architectures, comparative results, explainability practices, and deployment overview.
+  * `app.py`: Streamlit web app for salary prediction (Random Forest model); shows global market comparison and highlights key feature impacts (SHAP).
+  * `SymbolicRegression_&_DeepLearning.ipynb` and `EDA&baselines.ipynb`: Notebooks for model training, including EDA, feature engineering, experimentation with deep learning, and interpretable symbolic regression.
+  * `REPORT-ADV.md`: Detailed documentation of approach, model architectures, comparative results, explainability practices, and deployment overview.
 
 ---
 
